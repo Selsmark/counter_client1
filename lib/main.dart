@@ -76,8 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
     _getCounter('Get');
   }
 
+  // Gets the current value with 'Get', 
+  // increments by 1 and gets value with 'Increment',
+  // decrements by 1 and gets value with 'Decrement'
   Future<void> _getCounter(String endpoint) async {
-    final url = Uri.parse('http://192.168.246.151:5112/Counter/$endpoint');
+    final url = Uri.parse('http://10.0.2.2:8080/Counter/$endpoint');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
