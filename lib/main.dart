@@ -73,11 +73,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _getCounter();
+    _getCounter('Get');
   }
 
-  void _getCounter() async {
-    final url = Uri.parse('http://192.168.246.151:5112/Counter/Get');
+  Future<void> _getCounter(String endpoint) async {
+    final url = Uri.parse('http://192.168.246.151:5112/Counter/$endpoint');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -91,34 +91,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  // Increments the counter by 1 and gets the new value
   void _incrementCounter() async {
-    final url = Uri.parse('http://192.168.246.151:5112/Counter/Increment');
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      print(data);
-      setState(() {
-        _counter = data;
-      });
-    } else {
-      print('Error fetching data: ${response.statusCode}');
-    }
+    await _getCounter('Increment');
   }
 
+  // Decrements the counter by 1 and gets the new value
   void _decrementCounter() async {
-    final url = Uri.parse('http://192.168.246.151:5112/Counter/Decrement');
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      print(data);
-      setState(() {
-        _counter = data;
-      });
-    } else {
-      print('Error fetching data: ${response.statusCode}');
-    }
+    await _getCounter('Decrement');
   }
 
   @override
